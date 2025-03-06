@@ -96,6 +96,11 @@ To fix this issue run the bewlo command.
 It will ask a name, provide any name and hit enter, now good to go. 
 
 
+## API Documentation
+
+You can view the API documentation without running the Laravel project by opening the following link:  
+
+[API Documentation](public/Api_Doc.html)
 
 
 
