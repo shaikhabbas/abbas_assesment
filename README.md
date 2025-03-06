@@ -64,7 +64,14 @@ This command will generate the url like http://127.0.0.1:8000
 
 ## Screenshots
 
+```http
+   http://YOUR_BASE_URL
+```
 ![App Screenshot](/public/home-2.png)
+
+```http
+   http://YOUR_BASE_URL/docs/api
+```
 ![App Screenshot](/public/api.png)
 
 
