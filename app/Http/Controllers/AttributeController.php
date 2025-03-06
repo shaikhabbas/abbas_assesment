@@ -7,16 +7,30 @@ use Illuminate\Support\Facades\Validator;
 
 class AttributeController extends Controller
 {
+    /**
+    * Get all attributes.
+    * @response Attribute[]
+    */
     public function index()
     {
-        return response()->json(Attribute::all(), 200);
+        return response()->json(
+            Attribute::all(), 
+            200);
     }
 
+    /**
+    * Show attributes.
+    * @response Attribute
+    */
     public function show($id)
     {
         return response()->json(Attribute::findOrFail($id));
     }
 
+    /**
+    * Store attributes.
+    * @response Attribute
+    */
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -32,13 +46,26 @@ class AttributeController extends Controller
         return response()->json($attribute, 201);
     }
     
-    public function update(Request $request, $id)
+    /**
+    * Update attributes from id.
+    * @response Attribute
+    */
+
+    public function update(Request $request,int $id)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'null',
+            'type' => 'null',
+        ]);
         $attribute = Attribute::findOrFail($id);
         $attribute->update($request->all());
         return response()->json($attribute);
     }
 
+    /**
+    * Update attributes.
+    * @response Attribute
+    */
     public function updateAtr(Request $request, Attribute $attribute)
     {
         $validator = Validator::make($request->all(), [
@@ -54,6 +81,10 @@ class AttributeController extends Controller
         return response()->json($attribute, 200);
     }
 
+    /**
+    * Destory attributes.
+    * @response message:string
+    */
     public function destroy($id)
     {
         Attribute::destroy($id);

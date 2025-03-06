@@ -10,6 +10,10 @@ use Illuminate\Support\Facades\Validator;
 
 class ProjectAttributeController extends Controller
 {
+    /**
+ * Set Attributes for project.
+ * @response message:string
+ */
     public function setAttributes(Request $request, Project $project)
     {
         $validator = Validator::make($request->all(), [
@@ -35,6 +39,9 @@ class ProjectAttributeController extends Controller
         return response()->json(['message' => 'Attributes updated successfully'], 200);
     }
 
+     /**
+ * Get Attributes for project.
+ */
     public function getProjectWithAttributes(Project $project)
     {
         $attributes = $project->attributes()->get();
@@ -44,34 +51,46 @@ class ProjectAttributeController extends Controller
              */
             'project' => $project,
             /**
-             * @var Attribute
+             * @var Attribute[]
              */
             'attributes' => $attributes
         ], 200);
     }
 
+    /**
+     * Filter Projects by Attributes.
+     * @response Project[]
+     */
     public function filterProjectsByAttribute(Request $request)
     {
+        
         $validator = Validator::make($request->all(), [
-            'attribute_id' => 'required|exists:attributes,id',
-            'value' => 'required'
+            'attribute_name' => 'required|exists:attributes,name',
+            'value' => 'nullable|string',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
-
-        $projects = Project::whereHas('attributes', function ($query) use ($request) {
-            $query->where('attribute_id', $request->attribute_id)
-                  ->where('value', $request->value);
+        
+        $projects = Project::whereHas('attributeValues', function ($query) use ($request) {
+            $query->whereHas('attribute', function ($attributeQuery) use ($request) {
+                $attributeQuery->where('name', $request->attribute_name); 
+            });
+        
+            if ($request->filled('value')) { 
+                $query->where('value', 'LIKE', "%{$request->value}%");
+            }
         })->get();
+        
+        
 
-        return response()->json(
-            /**
-             * @var Project
-             */
-            $projects, 
-            200);
+        if ($projects->isEmpty()) {
+            return response()->json(['message' => 'No projects found matching the criteria'], 404);
+        }
+
+        return response()->json($projects, 200);
     }
+
 }
 

@@ -64,5 +64,6 @@ This command will generate the url like http://127.0.0.1:8000
 
 ## Screenshots
 
+![App Screenshot](/public/home-2.png)
 ![App Screenshot](/public/api.png)
 

@@ -6,21 +6,27 @@ use App\Models\Project;
 use App\Models\Attribute;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\ProjectFilterRequest;
+use App\Http\Resources\ProjectAttributesResource;
 
 
 class ProjectController extends Controller
 {
    /**
  * Get all projects with optional filters.
+ * 
+ * To filter data add filter in the field in object for like below object.  
+ * {
+ *  "name":"ProjectA", 
+ *  "Department":"IT"
+ * }
  */
-    public function index(Request $request)
+    public function index(ProjectFilterRequest $request)
     {
-        
-
         $query = Project::query();
 
         // Regular field filters
-        if ($request->has('filters')) {
+        if ($request->filled('filters')) {
             foreach ($request->filters as $field => $value) {
                 if (in_array($field, ['name', 'status'])) {
                     $query->where($field, 'LIKE', "%$value%");
@@ -29,7 +35,7 @@ class ProjectController extends Controller
         }
 
         // EAV filtering
-        if ($request->has('filters')) {
+        if ($request->filled('filters')) {
             foreach ($request->filters as $attributeName => $value) {
                 if (!in_array($attributeName, ['name', 'status'])) {
                     $attribute = Attribute::where('name', $attributeName)->first();
@@ -43,15 +49,24 @@ class ProjectController extends Controller
             }
         }
 
-        return response()->json($query->with('attributeValues.attribute')->get());
+        
+
+        return ProjectAttributesResource::collection($query->with('attributeValues.attribute')->get());
     }
 
-    
+    /**
+    * Show Project.
+    * @response Project
+    */
     public function show($id)
     {
         return response()->json(Project::findOrFail($id));
     }
 
+    /**
+    * Store Project.
+    * @response Project
+    */
     public function store(Request $request)
     {
         $request->validate([
@@ -63,7 +78,10 @@ class ProjectController extends Controller
 
         return response()->json($project, 201);
     }
-
+    /**
+    * Update Project.
+    * @response Project
+    */
     public function update(Request $request, Project $project)
     {
         $request->validate([
@@ -76,6 +94,10 @@ class ProjectController extends Controller
         return response()->json(['message' => 'Project updated successfully', 'project' => $project]);
     }
 
+    /**
+    * Destory Project.
+    * @response message:string
+    */
     public function destroy($id)
     {
         Project::destroy($id);

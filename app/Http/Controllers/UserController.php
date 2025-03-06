@@ -16,6 +16,7 @@ class UserController extends Controller
     
     
     /**
+    * Get All User.
     * @response User[]
     */
     
@@ -23,11 +24,20 @@ class UserController extends Controller
     {
         return response()->json(User::all());
     }
+
+    /**
+    * Show User.
+    * @response User
+    */
     public function show($id)
     {
         return response()->json(User::findOrFail($id));
     }
 
+    /**
+    * Store User.
+    * @response User
+    */
     public function store(Request $request)
     {
         $request->validate([
@@ -46,16 +56,31 @@ class UserController extends Controller
 
         return response()->json($user, 201);
     }
+
+    /**
+    * Update User.
+    * @response User
+    */
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
         $user->update($request->all());
         return response()->json($user);
     }
-
+    /**
+     * Destory User.
+     * @response message:string
+     */    
     public function destroy($id)
     {
+        $user = auth('api')->user();
+
+        if ($user->id == $id) {
+            return response()->json(['message' => 'You cannot delete your own account.'], 403);
+        }
+
         User::destroy($id);
         return response()->json(['message' => 'User deleted']);
     }
+
 }
