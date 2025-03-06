@@ -1,3 +1,35 @@
+## Abbas Test Project Setup Guide
+
+This project is a comprehensive API-based system built using Laravel 12. It provides functionalities for user management, project tracking, timesheet logging, and dynamic attribute handling through an Entity-Attribute-Value (EAV) model.
+
+The system is designed to be flexible and scalable, allowing users to manage projects, track work hours, and store dynamic project-related data efficiently. Authentication is handled using Laravel Passport, ensuring secure access to APIs. Additionally, the API documentation is automatically generated using Scramble, providing clear and structured endpoints for easy integration.
+
+### Key Features
+
+- User Management: Create, update, delete users with secure authentication.
+- Project Management: Track projects with dynamic attributes.
+- Timesheet Logging: Record and monitor work hours efficiently.
+- Dynamic Attributes (EAV Model): Support customizable project fields.
+- Filtering: Retrieve data based on multiple criteria.
+- Secure API Access: Authentication via Bearer Tokens.
+- Automated API Documentation: Easily accessible and updated documentation.
+
+## Prerequisites
+
+Make sure you have the following installed on your system:
+
+PHP 8.1 or higher
+
+Composer
+
+MySQL
+
+Laravel 12
+
+MAMP (if using macOS)
+XAMPP or Laragon (if using Windows)
+
+Composer
 
 ## Installation Steps
 
