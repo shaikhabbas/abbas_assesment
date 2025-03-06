@@ -99,7 +99,8 @@ It will ask a name, provide any name and hit enter, now good to go.
 ## API Documentation
 
 You can view the API documentation without running the Laravel project by opening the following link:  
-[API Documentation](https://shaikhabbas.github.io/abbas_assesment/Api_Doc.html)
+[View API Docs](https://shaikhabbas.github.io/abbas_assesment/docs/Api_Doc.html){:target="_blank"}
+
 
 
 
