@@ -85,4 +85,18 @@ For login use below credentials
 ```
 
 
+## FAQ
+
+#### I am seeing error of Personal access client not found. 
+
+To fix this issue run the bewlo command.
+```bash
+  php artisan passport:client --personal
+```
+It will ask a name, provide any name and hit enter, now good to go. 
+
+
+
+
+
 
