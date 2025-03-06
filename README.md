@@ -46,7 +46,7 @@ Install Dependencies
   composer install
 ```
 
-Next, Create Database After running MAMP,XAMPP or Laragon which ever server you're using, open phpmyadmin, create a db there.
+Next, Create Database After running MAMP,XAMPP or Laragon which ever server you're using, open phpmyadmin, create a db there. SQL db dump is also added in the repo for more clearity named as abbas_test.sql.
 
 Next, Environment Configuration, Copy the example .env file and configure it:
 
@@ -73,7 +73,7 @@ Next, Generate Application Key
 Next, Run Migrations and Seeders
 
 ```bash
-  php artisan migrate --seed
+  php artisan migrate:fresh --seed
 ```
 
 Next, Serve the Application
@@ -121,7 +121,7 @@ For login use below credentials
 
 #### I am seeing error of Personal access client not found. 
 
-To fix this issue run the bewlo command.
+To fix this issue run the below command.
 ```bash
   php artisan passport:client --personal
 ```
