@@ -14,7 +14,7 @@ use App\Http\Controllers\ProjectUserController;
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
-// Route::middleware('auth:api')->group(function () {
+Route::middleware('auth:api')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::apiResource('users', UserController::class);
     Route::apiResource('projects', ProjectController::class);    
@@ -34,7 +34,7 @@ Route::post('/login', [AuthController::class, 'login']);
     Route::post('/projects/{project}/users', [ProjectUserController::class, 'assignUserToProject']);
     Route::delete('/projects/{project}/users/{user}', [ProjectUserController::class, 'removeUserFromProject']);
     Route::get('/projects/{project}/users', [ProjectUserController::class, 'getUsersByProject']);
-// });
+});
 
 
 

@@ -67,3 +67,15 @@ This command will generate the url like http://127.0.0.1:8000
 ![App Screenshot](/public/home-2.png)
 ![App Screenshot](/public/api.png)
 
+
+## Credentials
+
+For login use below credentials
+
+```bash
+  emali: abbas@example.com
+  password: password
+```
+
+
+
